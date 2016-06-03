@@ -27,6 +27,14 @@
             = f.text_area :excerpt
         %tr
           %td
+            Author
+          %td
+            - if current_user.admin?
+              = f.collection_select :author_id, Spina::Author.all, :id, :name, prompt: true
+            - else
+              = f.collection_select :author_id, [current_user], :id, :name
+        %tr
+          %td
             SEO title
           %td
             = f.text_field :seo_title

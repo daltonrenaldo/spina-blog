@@ -24,7 +24,7 @@ module Spina
 
       def create
         add_breadcrumb "New article"
-        @article = Article.new(article_params)
+        @article = Article.new(article_params.merge(created_by: current_user.id))
         if @article.save
           redirect_to spina.admin_articles_url, notice: "Article successfully created"
         else
@@ -58,7 +58,7 @@ module Spina
 
       def article_params
         params.require(:article).permit(:title, :subtitle, :content, :excerpt, :draft,
-                                        :publish_date, :spina_category_id,
+                                        :publish_date, :spina_category_id, :author_id,
                                         :header_photo, :seo_title, :meta_description)
       end
     end
