@@ -3,40 +3,40 @@
 %trix-toolbar.clearfix{ id: "#{object_id}_toolbar"}
   .button-groups
     .button-group.pull-left
-      %button.button.button-small{ type: 'button', tabindex: -1, title: 'Bold', data: { trix: {attribute: 'bold', key: 'b' }}}
+      %button.button.button-small{ type: 'button', tabindex: -1, title: 'Bold', data: {attribute: 'bold', key: 'b' }}
         .icon.icon-bold
-      %button.button.button-small{ type: 'button', tabindex: -1, title: 'Italic', data: { trix: {attribute: 'italic', key: 'i' }}}
+      %button.button.button-small{ type: 'button', tabindex: -1, title: 'Italic', data: {attribute: 'italic', key: 'i' }}
         .icon.icon-italic
-      %button.button.button-small{ type: 'button', tabindex: -1, title: 'Bullets', data: { trix: {attribute: 'bullet' }}}
+      %button.button.button-small{ type: 'button', tabindex: -1, title: 'Bullets', data: {attribute: 'bullet' }}
         .icon.icon-list-ul
-      %button.button.button-small{ type: 'button', tabindex: -1, title: 'Link', data: { trix: {action: 'link', attribute: 'href', key: 'k' }}}
+      %button.button.button-small{ type: 'button', tabindex: -1, title: 'Link', data: {action: 'link', attribute: 'href', key: 'k' }}
         .icon.icon-link
-      %button.button.button-small{ type: 'button', tabindex: -1, title: 'Embed', data: { trix: {action: 'embed', attribute: 'iframe' }}}
+      %button.button.button-small{ type: 'button', tabindex: -1, title: 'Embed', data: {action: 'embed', attribute: 'iframe' }}
         .icon.icon-code
-      %button.button.button-small{ type: 'button', tabindex: -1, title: 'Blockquote', data: {trix: { attribute: 'quote' }}}
+      %button.button.button-small{ type: 'button', tabindex: -1, title: 'Blockquote', data: { attribute: 'quote' }}
         quote
-      %button.button.button-small.js-trix-photo{ type: 'button', tabindex: -1, title: 'Photo', data: {trix: { action: 'photo', attribute: 'photo' }}}
+      %button.button.button-small.js-trix-photo{ type: 'button', tabindex: -1, title: 'Photo', data: {action: 'photo', attribute: 'photo' }}
         .icon.icon-picture-o
 
     .button-group.pull-left
-      %button.button.button-small{ type: 'button', tabindex: -1, title: 'h1', data: { trix: { attribute: 'h1' }}} H1
-      %button.button.button-small{ type: 'button', tabindex: -1, title: 'h2', data: { trix: { attribute: 'h2' }}} H2
-      %button.button.button-small{ type: 'button', tabindex: -1, title: 'h3', data: { trix: { attribute: 'h3' }}} H3
-      %button.button.button-small{ type: 'button', tabindex: -1, title: 'h4', data: { trix: { attribute: 'h4' }}} H4
+      %button.button.button-small{ type: 'button', tabindex: -1, title: 'h1', data: { attribute: 'h1' }} H1
+      %button.button.button-small{ type: 'button', tabindex: -1, title: 'h2', data: { attribute: 'h2' }} H2
+      %button.button.button-small{ type: 'button', tabindex: -1, title: 'h3', data: { attribute: 'h3' }} H3
+      %button.button.button-small{ type: 'button', tabindex: -1, title: 'h4', data: { attribute: 'h4' }} H4
 
       -# %button.button.button-small{ type: 'button', tabindex: -1, title: 'Numbers', data: { attribute: 'number' }}
       -#   .icon.icon-list-ul
 
   .dialogs
-    .dialog.link_dialog{ data: {trix: { attribute: 'href', dialog: 'href'}}}
+    .dialog.link_dialog{ data: { attribute: 'href', dialog: 'href'}}
       .link_url_fields
         %input{type: 'text', name: 'href', placeholder: 'Enter a URL…', required: true}
         .button-group
-          %input.button{type: 'button', tabindex: -1, value: 'Link', data: {trix: { method: 'setAttribute'}}}
-          %input.button{type: 'button', tabindex: -1, value: 'Unlink', data: {trix: { method: 'removeAttribute'}}}
-    .dialog.link_dialog{ data: {trix: { attribute: 'iframe', dialog: 'iframe'}}}
+          %input.button{type: 'button', tabindex: -1, value: 'Link', data: { method: 'setAttribute'}}
+          %input.button{type: 'button', tabindex: -1, value: 'Unlink', data: { method: 'removeAttribute'}}
+    .dialog.embed_dialog{ data: { attribute: 'iframe', dialog: 'iframe'}}
       .link_url_fields
-        %input{type: 'text', name: 'embed', placeholder: 'enter embed code', required: true}
+        %input{type: 'text', name: 'iframe', placeholder: 'enter embed code', required: true}
         .button-group
           %input.button{type: 'button', tabindex: -1, value: 'Embed', onclick: 'createAttachment();'}
 
@@ -48,7 +48,7 @@
     console.log('hi')
   }
   createAttachment = function() {
-    var $input = $('input[name=embed]');
+    var $input = $('input[name=iframe]');
     var attachment = new Trix.Attachment({content: $input.val()});
     trix.editor.insertAttachment(attachment);
     $input.val('');
