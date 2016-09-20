@@ -17,6 +17,14 @@ module Spina
         ::Spina.register_plugin(plugin)
       end
 
+      initializer "spina.articles.append_migrations" do |app|
+        unless app.root.to_s.match root.to_s
+          config.paths["db/migrate"].expanded.each do |expanded_path|
+            app.config.paths["db/migrate"] << expanded_path
+          end
+        end
+      end
+
       config.after_initialize do
         # Since in routes.rb we are using prepend, we need to reload routes
         # Otherwise, spina's /*id routes will prevent us to ever get to our routes
