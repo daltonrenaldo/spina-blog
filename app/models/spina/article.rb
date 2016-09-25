@@ -3,7 +3,7 @@ module Spina
     before_save :create_slug
     mount_uploader :header_photo, PhotoUploader
     validates :title, :subtitle, :content, :publish_date, presence: true
-    belongs_to :category, foreign_key: 'spina_category_id'
+    has_and_belongs_to_many :categories, join_table: :spina_articles_categories
     belongs_to :author
 
     scope :published, -> { where(draft: false) }

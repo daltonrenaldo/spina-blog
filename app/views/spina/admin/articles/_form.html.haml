@@ -55,7 +55,7 @@
           %td
             Select category
           %td
-            = f.collection_select :spina_category_id, Spina::Category.all, :id, :title, prompt: true
+            = f.collection_select :category_ids, Spina::Category.all.order(:title), :id, :title, {selected: @article.categories.map(&:id)}, multiple: true
         %tr
           %td
             Publish date
