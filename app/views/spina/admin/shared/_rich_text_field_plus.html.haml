@@ -1,0 +1,52 @@
+- object_id = form.object.persisted? ? form.object.object_id : "new_association_#{form.object.object_id}"
+= form.hidden_field field, id: "#{object_id}_input"
+%trix-toolbar.clearfix{ id: "#{object_id}_toolbar", data: { editor_id: "#{object_id}_editor" }}
+  .button-groups
+    .button-group.pull-left
+      %button.button.button-small{ type: 'button', tabindex: -1, title: 'Bold', data: { attribute: 'bold', key: 'b' }}
+        .icon.icon-bold
+      %button.button.button-small{ type: 'button', tabindex: -1, title: 'Italic', data: { attribute: 'italic', key: 'i' }}
+        .icon.icon-italic
+      %button.button.button-small{ type: 'button', tabindex: -1, title: 'Bullets', data: { attribute: 'bullet' }}
+        .icon.icon-list-ul
+      %button.button.button-small{ type: 'button', tabindex: -1, title: 'Link', data: { action: 'link', attribute: 'href', key: 'k' }}
+        .icon.icon-link
+      %button.button.button-small.js-trix-photo{ type: 'button', tabindex: -1, title: 'Photo', data: { action: 'photo', attribute: 'photo' }}
+        .icon.icon-picture-o
+      %button.button.button-small{ type: 'button', tabindex: -1, title: 'Embed', data: {action: 'embed', attribute: 'iframe' }}
+        .icon.icon-code
+      %button.button.button-small{ type: 'button', tabindex: -1, title: 'Blockquote', data: { attribute: 'quote' }}
+        quote
+
+    .button-group.pull-left
+      %button.button.button-small{ type: 'button', tabindex: -1, title: 'h1', data: { attribute: 'h1' }} H1
+      %button.button.button-small{ type: 'button', tabindex: -1, title: 'h2', data: { attribute: 'h2' }} H2
+      %button.button.button-small{ type: 'button', tabindex: -1, title: 'h3', data: { attribute: 'h3' }} H3
+      %button.button.button-small{ type: 'button', tabindex: -1, title: 'h4', data: { attribute: 'h4' }} H4
+
+      -# %button.button.button-small{ type: 'button', tabindex: -1, title: 'Numbers', data: { attribute: 'number' }}
+      -#   .icon.icon-list-ul
+
+  .dialogs
+    .dialog.link_dialog{ data: { attribute: 'href', dialog: 'href'}}
+      .link_url_fields
+        %input{type: 'text', name: 'href', placeholder: 'Enter a URL…', required: true}
+        .button-group
+          %input.button{type: 'button', tabindex: -1, value: 'Link', data: { method: 'setAttribute'}}
+          %input.button{type: 'button', tabindex: -1, value: 'Unlink', data: { method: 'removeAttribute'}}
+    .dialog.embed_dialog{ data: { attribute: 'iframe', dialog: 'iframe'}}
+      .link_url_fields
+        %input{type: 'text', name: 'iframe', placeholder: 'enter embed code', required: true}
+        .button-group
+          %input.button{type: 'button', tabindex: -1, value: 'Embed', onclick: 'createAttachment();'}
+
+%trix-editor.text-input{input: "#{object_id}_input", toolbar: "#{object_id}_toolbar", id: "#{object_id}_editor", data: {intro: "true"}}
+
+:javascript
+  var trix = document.querySelector('trix-editor');
+  var createAttachment = function() {
+    var $input = $('input[name=iframe]');
+    var attachment = new Trix.Attachment({content: $input.val()});
+    trix.editor.insertAttachment(attachment);
+    $input.val('');
+  }
