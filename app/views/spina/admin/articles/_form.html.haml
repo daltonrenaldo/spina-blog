@@ -3,69 +3,56 @@
     = error_explanation!(@article)
 
   #page_content.tab-content.active
-    .table-container
-      %table.table.table-form
-        %tr
-          %td
-            Title
-          %td
-            = f.text_field :title
-        %tr
-          %td
-            Subtitle
-          %td
-            = f.text_field :subtitle
-        %tr
-          %td
-            Content
-          %td
-            = render 'spina/admin/shared/rich_text_field_plus', form: f, field: :content
-        %tr
-          %td
-            Excerpt
-          %td
-            = f.text_area :excerpt
-        %tr
-          %td
-            Author
-          %td
-            - if current_user.admin?
-              = f.collection_select :author_id, Spina::Author.all, :id, :name, prompt: true
-            - else
-              = f.collection_select :author_id, [current_user], :id, :name
-        %tr
-          %td
-            SEO title
-          %td
-            = f.text_field :seo_title
-        %tr
-          %td
-            Meta description
-          %td
-            = f.text_field :meta_description
-        %tr
-          %td
-            Header photo
-          %td
-            - if f.object.header_photo && f.object.header_photo.file.present?
-              .image
-                = image_tag f.object.header_photo.thumb
-            = f.file_field :header_photo, accept: 'image/png,image/gif,image/jpeg'
-        %tr
-          %td
-            Select category
-          %td
-            = f.collection_select :category_ids, Spina::Category.all.order(:title), :id, :title, {selected: @article.categories.map(&:id)}, multiple: true
-        %tr
-          %td
-            Publish date
-          %td
-            = f.text_field :publish_date, value: (@article.publish_date.strftime("%d-%m-%Y") unless @article.new_record?), class: 'datepicker'
-        %tr
-          %td
-            Draft?
-          %td
-            = f.check_box :draft, data: { switch: true }
+    .horizontal-form
+      .horizontal-form-group
+        .horizontal-form-label Title
+        .horizontal-form-content= f.text_field :title
+
+      .horizontal-form-group
+        .horizontal-form-label Subtitle
+        .horizontal-form-content= f.text_field :subtitle
+
+      .horizontal-form-group
+        .horizontal-form-label Content
+        .horizontal-form-content= render 'spina/admin/shared/rich_text_field_plus', form: f, field: :content
+
+      .horizontal-form-group
+        .horizontal-form-label Excerpt
+        .horizontal-form-content= f.text_area :excerpt
+
+      .horizontal-form-group
+        .horizontal-form-label Author
+        .horizontal-form-content
+          - if current_user.admin?
+            = f.collection_select :author_id, Spina::Author.all, :id, :name, prompt: true
+          - else
+            = f.collection_select :author_id, [current_user], :id, :name
+
+      .horizontal-form-group
+        .horizontal-form-label Meta description
+        .horizontal-form-content= f.text_field :meta_description
+
+      .horizontal-form-group
+        .horizontal-form-label Header photo
+        .horizontal-form-content
+          - if f.object.header_photo && f.object.header_photo.file.present?
+            .image
+              = image_tag f.object.header_photo.thumb
+          = f.file_field :header_photo, accept: 'image/png,image/gif,image/jpeg'
+
+      .horizontal-form-group
+        .horizontal-form-label Select category
+        .horizontal-form-content= f.collection_select :category_ids, Spina::Category.all.order(:title), :id, :title, {selected: @article.categories.map(&:id)}, multiple: true
+
+
+      .horizontal-form-group
+        .horizontal-form-label Publish date
+        .horizontal-form-content= f.text_field :publish_date, value: (@article.publish_date.strftime("%d-%m-%Y") unless @article.new_record?), class: 'datepicker'
+
+
+      .horizontal-form-group
+        .horizontal-form-label Draft?
+        .horizontal-form-content= f.check_box :draft, data: { switch: true }
 
   %button.button.button-primary{ type: 'submit', data: { icon: 'o' } }
     Save article

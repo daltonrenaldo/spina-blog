@@ -1,0 +1,6 @@
+%li{ class: ('active' if current_admin_path.start_with?('/articles')) }
+  = link_to spina.admin_articles_path do
+    = icon('pencil-outline')
+    = plugin.name.capitalize
+    %small
+      A news or blog feed for your website
