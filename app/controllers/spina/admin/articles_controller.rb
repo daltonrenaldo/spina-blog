@@ -10,7 +10,7 @@ module Spina
       end
 
       def index
-        @articles = Article.all
+        @articles = Article.order("draft, created_at desc")
       end
 
       def new
